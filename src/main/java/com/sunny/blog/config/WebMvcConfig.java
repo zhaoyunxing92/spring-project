@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -25,7 +24,7 @@ import org.springframework.web.servlet.view.JstlView;
 // 启用spring mvc xml代码<mvc:annotation-driven/>
 @EnableWebMvc
 //启用组件扫描
-@ComponentScan("com.sunny.blog")
+@ComponentScan("com.sunny.blog.controller")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
     final static Logger LOGGER = LoggerFactory.getLogger(WebMvcConfig.class);
 
@@ -36,11 +35,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
      */
     @Bean
     public ViewResolver viewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setViewClass(JstlView.class);
-        viewResolver.setSuffix(".jsp");
-        viewResolver.setPrefix("/WEB-INF/views/");
-        return viewResolver;
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setViewClass(JstlView.class);
+        resolver.setSuffix(".jsp");
+        resolver.setPrefix("/WEB-INF/views/");
+        resolver.setExposeContextBeansAsAttributes(true);
+        return resolver;
     }
 
     /**
@@ -48,19 +48,22 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
      *
      * @return
      */
-    @Bean("multipartResolver")
-    public CommonsMultipartResolver commonsMultipartResolver() {
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setMaxUploadSize(10 * 1024 * 1024);
-        return multipartResolver;
-    }
+//    @Bean("multipartResolver")
+//    public CommonsMultipartResolver commonsMultipartResolver() {
+//        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+//        multipartResolver.setMaxUploadSize(10 * 1024 * 1024);
+//        return multipartResolver;
+//    }
 
     /**
      * 配置静态资源处理
+     * 要求 DispatcherServlet 对静态资源的请求转发到servlet 容器中，
+     *
      * @param configurer
      */
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+
         configurer.enable();
     }
 }
