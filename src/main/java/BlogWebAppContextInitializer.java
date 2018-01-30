@@ -7,11 +7,11 @@ import javax.servlet.Filter;
 
 /**
  * @author sunny
- * @className WebAppContextInitializer
+ * @className BlogWebAppContextInitializer
  * @date 2018-01-29 11:44
  * @description:
  */
-public class WebAppContextInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class BlogWebAppContextInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     /**
      * 配置root上下文,如Jpa数据源等等的配置
      *  返回带有@Configuration 注解的类将会用来配置 ContextLoaderListener 创建的应用上下文中的bean
