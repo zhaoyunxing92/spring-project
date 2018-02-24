@@ -14,12 +14,13 @@ import javax.servlet.Filter;
 public class BlogWebAppContextInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     /**
      * 配置root上下文,如Jpa数据源等等的配置
-     *  返回带有@Configuration 注解的类将会用来配置 ContextLoaderListener 创建的应用上下文中的bean
+     * 返回带有@Configuration 注解的类将会用来配置 ContextLoaderListener 创建的应用上下文中的bean
+     *
      * @return
      */
     @Override
     protected Class<?>[] getRootConfigClasses() {
-
+        //return new Class<?>[0];
         return new Class<?>[]{RootContextConfig.class};
     }
 
@@ -51,7 +52,7 @@ public class BlogWebAppContextInitializer extends AbstractAnnotationConfigDispat
     @Override
     protected Filter[] getServletFilters() {
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter("UTF-8", true);
-      //  DelegatingFilterProxy securityFilterChain = new DelegatingFilterProxy("springSecurityFilterChain");
+        //  DelegatingFilterProxy securityFilterChain = new DelegatingFilterProxy("springSecurityFilterChain");
         return new Filter[]{characterEncodingFilter};
     }
 }
